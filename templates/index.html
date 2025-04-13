@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My PDF Tools</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .btn { 
+            display: inline-block; padding: 15px 30px; margin: 10px; 
+            background-color: #4CAF50; color: white; text-decoration: none; 
+            border-radius: 5px; font-size: 18px; text-align: center;
+        }
+        .btn:hover { background-color: #45a049; }
+        .container { text-align: center; margin-top: 50px; }
+        h1 { color: #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PDF Tools</h1>
+        <a href="{{ url_for('merge') }}" class="btn">Merge PDFs</a>
+        <a href="{{ url_for('extract') }}" class="btn">Extract PDF Pages</a>
+    </div>
+</body>
+</html>
