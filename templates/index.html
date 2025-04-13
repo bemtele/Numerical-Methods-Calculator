@@ -1,83 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bisection Method Calculator</title>
+    <title>Numerical Methods Calculator</title>
     <style>
         body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input, select { width: 100%; padding: 8px; box-sizing: border-box; }
-        button { background: #4CAF50; color: white; border: none; padding: 10px 15px; cursor: pointer; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        .error { color: red; }
+        .method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
+        .method-card { 
+            border: 1px solid #ddd; padding: 20px; 
+            border-radius: 8px; text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .method-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .method-btn {
+            background: #4CAF50; color: white; 
+            border: none; padding: 10px 20px;
+            border-radius: 4px; cursor: pointer;
+            font-size: 16px; text-decoration: none;
+            display: inline-block; margin-top: 10px;
+        }
+        h1 { color: #333; text-align: center; }
     </style>
 </head>
 <body>
-    <h1>Bisection Method Calculator</h1>
+    <h1>Numerical Methods Calculator</h1>
     
-    {% if error %}
-        <div class="error">{{ error }}</div>
-    {% endif %}
-
-    <form method="POST">
-        <div class="form-group">
-            <label for="function">Function (e.g., x**3 - 3*x + 4):</label>
-            <input type="text" id="function" name="function" required>
+    <div class="method-grid">
+        <div class="method-card">
+            <h2>Bisection Method</h2>
+            <p>Finds roots by repeatedly dividing intervals</p>
+            <a href="/bisection" class="method-btn">Use Bisection</a>
         </div>
         
-        <div class="form-group">
-            <label for="tolerance">Tolerance (%):</label>
-            <input type="number" id="tolerance" name="tolerance" step="0.01" required>
+        <div class="method-card">
+            <h2>False Position</h2>
+            <p>Similar to bisection but uses linear interpolation</p>
+            <a href="/false_position" class="method-btn">Use False Position</a>
         </div>
         
-        <div class="form-group">
-            <label for="x_l">Lower bound (x_l):</label>
-            <input type="number" id="x_l" name="x_l" step="0.01" required>
+        <div class="method-card">
+            <h2>Newton-Raphson</h2>
+            <p>Uses function derivatives for faster convergence</p>
+            <a href="/newton" class="method-btn">Use Newton-Raphson</a>
         </div>
         
-        <div class="form-group">
-            <label for="x_u">Upper bound (x_u):</label>
-            <input type="number" id="x_u" name="x_u" step="0.01" required>
+        <div class="method-card">
+            <h2>Secant Method</h2>
+            <p>Derivative-free alternative to Newton's method</p>
+            <a href="/secant" class="method-btn">Use Secant Method</a>
         </div>
-        
-        <button type="submit">Calculate</button>
-    </form>
-
-    {% if valid_bounds %}
-        <h2>Valid Bounds Found</h2>
-        <ul>
-            {% for bound in valid_bounds %}
-                <li>x_l = {{ bound[0] }}, x_u = {{ bound[1] }}, f(x_l) = {{ bound[2] }}, f(x_u) = {{ bound[3] }}, Est. Iterations: {{ bound[4] }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-
-    {% if results %}
-        <h2>Results</h2>
-        <table>
-            <tr>
-                <th>Iteration</th>
-                <th>Lower (x_l)</th>
-                <th>Upper (x_u)</th>
-                <th>Midpoint</th>
-                <th>Error (%)</th>
-                <th>f(Midpoint)</th>
-            </tr>
-            {% for row in results %}
-                <tr>
-                    <td>{{ row.iteration }}</td>
-                    <td>{{ "%.6f"|format(row.x_l) }}</td>
-                    <td>{{ "%.6f"|format(row.x_u) }}</td>
-                    <td>{{ "%.6f"|format(row.midpoint) }}</td>
-                    <td>{{ "%.6f"|format(row.error) if row.error else "N/A" }}</td>
-                    <td>{{ "%.6f"|format(row.f_midpoint) }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-        
-        <h3>Root Found: {{ "%.6f"|format(root) }}</h3>
-    {% endif %}
+    </div>
 </body>
 </html>
